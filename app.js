@@ -1,3 +1,4 @@
+const userInput = document.querySelector(".buscador").value;
 let weather = {
     apiKey: "56aed0144718ee0e48b6c07948f9b636",
     fetchWeather: function (ciudad) {
@@ -13,20 +14,32 @@ let weather = {
     },
     displayWeather: function (data) {
         const { name } = data;
-        const { icon, description } = data.weather[0];
-        const { temp, humidity } = data.main;
-        const { speed } = data.wind;
-        document.querySelector(".ciudad").innerText = "Clima en " + name;
-        document.querySelector(".temp").innerText = temp + "°C";
-        document.querySelector(".icono").src =
-            "https://openweathermap.org/img/wn/" + icon + ".png";
-        document.querySelector(".descripcion").innerText = description;
-        document.querySelector(".humedad").innerText =
-            "Humedad: " + humidity + "%";
-        document.querySelector(".viento").innerText =
-            "Velocidad del viento: " + speed + " km/h";
-        document.body.style.backgroundImage =
-            "url('https://source.unsplash.com/1600x900/?" + name + "')";
+        if (name) {
+            const { icon, description } = data.weather[0];
+            const { temp, humidity } = data.main;
+            const { speed } = data.wind;
+            document.querySelector(".ciudad").innerText = "Clima en " + name;
+            document.querySelector(".temp").innerText = temp + "°C";
+            document.querySelector(".icono").src =
+                "https://openweathermap.org/img/wn/" + icon + ".png";
+            document.querySelector(".descripcion").innerText = description;
+            document.querySelector(".humedad").innerText =
+                "Humedad: " + humidity + "%";
+            document.querySelector(".viento").innerText =
+                "Velocidad del viento: " + speed + " km/h";
+            document.body.style.backgroundImage =
+                "url('https://source.unsplash.com/1600x900/?" + name + "')";
+        } else {
+            document.querySelector(".ciudad").innerText =
+                "Ciudad no encontrada";
+            document.querySelector(".temp").innerText = "";
+            document.querySelector(".icono").src = "";
+            document.querySelector(".descripcion").innerText = "";
+            document.querySelector(".humedad").innerText = "";
+            document.querySelector(".viento").innerText = "";
+            document.body.style.backgroundImage =
+                "url('https://source.unsplash.com/1600x900/?404&not&found')";
+        }
     },
     search: function () {
         this.fetchWeather(document.querySelector(".buscador").value);
