@@ -18,7 +18,9 @@ let weather = {
             const { icon, description } = data.weather[0];
             const { temp, humidity } = data.main;
             const { speed } = data.wind;
-            document.querySelector(".ciudad").innerText = "Clima en " + name;
+            const { country } = data.sys;
+            document.querySelector(".ciudad").innerText =
+                "Clima en " + country + ". " + name;
             document.querySelector(".temp").innerText = temp + "°C";
             document.querySelector(".icono").src =
                 "https://openweathermap.org/img/wn/" + icon + ".png";
@@ -29,6 +31,7 @@ let weather = {
                 "Velocidad del viento: " + speed + " km/h";
             document.body.style.backgroundImage =
                 "url('https://source.unsplash.com/1600x900/?" + name + "')";
+            console.log(data);
         } else {
             document.querySelector(".ciudad").innerText =
                 "Ciudad no encontrada";
